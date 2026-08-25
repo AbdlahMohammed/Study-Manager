@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #f5eee6;
+    --text-color: #3e2723;
+    --box-bg: #ffffff;
+    --box-shadow: rgba(62, 39, 35, 0.12);
+    --subtitle-color: #795548;
+    --input-bg: #faf7f3;
+    --input-border: #d7ccc8;
+    --input-text: #3e2723;
+    --input-focus-border: #8d6e63;
+    --button-bg: #6d4c41;
+    --button-hover-bg: #5d4037;
+    --button-text: white;
+}
+
+[data-theme="dark"] {
+    --bg-color: #221a14;
+    --text-color: #f0e2d5;
+    --box-bg: #2e241c;
+    --box-shadow: rgba(0, 0, 0, 0.35);
+    --subtitle-color: #c4a68c;
+    --input-bg: #382c22;
+    --input-border: #4e3b2a;
+    --input-text: #f0e2d5;
+    --input-focus-border: #d9b38c;
+    --button-bg: #a97c50;
+    --button-hover-bg: #b98d63;
+    --button-text: #221a14;
+}
+
+body {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.box {
+    background-color: var(--box-bg);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+
+    box-shadow: 0 10px 30px var(--box-shadow);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box h1 {
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.box p {
+    color: var(--subtitle-color);
+    margin-bottom: 30px;
+}
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+
+    background-color: var(--input-bg);
+    color: var(--input-text);
+
+    font-size: 16px;
+    font-family: inherit;
+
+    outline: none;
+    margin-bottom: 15px;
+
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--input-focus-border);
+}
+
+.button {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 12px;
+
+    background-color: var(--button-bg);
+    color: var(--button-text);
+
+    font-size: 16px;
+    font-family: inherit;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.theme-toggle {
+    background-color: var(--box-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

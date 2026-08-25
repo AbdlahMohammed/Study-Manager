@@ -1,0 +1,501 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #faf8f5;
+    --text-color: #4e342e;
+    --box-bg: white;
+    --box-border: #dfcbb5;
+    --input-bg: #fffdf9;
+    --input-border: #dfcbb5;
+    --input-text: #5d4037;
+    --button-bg: #68432e;
+    --button-text: white;
+    --day-bg: #E8C9A8;
+    --day-hover: #e8d5c0;
+    --day-text: #4e342e;
+    --active-bg: #68432e;
+    --active-text: white;
+    --subject-bg: #E8C9A8;
+    --mission-bg: #ffd49d;
+    --mission-text: #000000;
+    --dot-bg: #795548;
+    --english-bg: #b08968;
+    --physics-bg: #a66b47;
+    --count-bg: #e2e2e2;
+    --delete-color: #765444;
+    --empty-text: #9b7561;
+    --button2-bg: #4e342e;
+    --button2-text: #f5eadc;
+    --checkbox-border: #8B5E3C;
+    --checkbox-bg: #fff8ef;
+    --checkbox-checked-bg: #8B5E3C;
+    --checkbox-glow1: #8B5E3C;
+    --checkbox-glow2: #D9B38C;
+    --hello-stroke: rgb(80, 41, 5);
+    --hello-fill: black;
+}
+
+[data-theme="dark"] {
+    --bg-color: #221a14;
+    --text-color: #f0e2d5;
+    --box-bg: #2e241c;
+    --box-border: #4e3b2a;
+    --input-bg: #382c22;
+    --input-border: #4e3b2a;
+    --input-text: #f0e2d5;
+    --button-bg: #a97c50;
+    --button-text: #221a14;
+    --day-bg: #4e3b2a;
+    --day-hover: #5d4832;
+    --day-text: #f0e2d5;
+    --active-bg: #a97c50;
+    --active-text: #221a14;
+    --subject-bg: #4e3b2a;
+    --mission-bg: #6b5138;
+    --mission-text: #f0e2d5;
+    --dot-bg: #d9b38c;
+    --english-bg: #8a6a49;
+    --physics-bg: #7d5638;
+    --count-bg: #e0aa7a;
+    --delete-color: #d9b38c;
+    --empty-text: #c4a68c;
+    --button2-bg: #a97c50;
+    --button2-text: #221a14;
+    --checkbox-border: #d9b38c;
+    --checkbox-bg: #382c22;
+    --checkbox-checked-bg: #a97c50;
+    --checkbox-glow1: #a97c50;
+    --checkbox-glow2: #6b5138;
+    --hello-stroke: #d9b38c;
+    --hello-fill: #f0e2d5;
+}
+
+body {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 30px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    font-family: "Cairo", sans-serif;
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+/* Boxes */
+
+.box {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--box-bg);
+    border: 1px solid var(--box-border);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+h2 {
+    font-family: "Cairo", sans-serif;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+
+/* New Task */
+
+.inputs {
+    font-family: "Cairo", sans-serif;
+    display: flex;
+    gap: 10px;
+}
+
+input,
+select {
+    font-family: "Cairo", sans-serif;
+    height: 50px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    border-radius: 12px;
+    padding: 0 15px;
+    font-size: 15px;
+    color: var(--input-text);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.inputs input {
+    font-family: "Cairo", sans-serif;
+    flex: 2;
+}
+
+.inputs select {
+    font-family: "Cairo", sans-serif;
+    flex: 1;
+}
+
+button {
+    font-family: "Cairo", sans-serif;
+    border: none;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border-radius: 12px;
+    padding: 0 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+/* Days */
+
+.days {
+    font-family: "Cairo", sans-serif;
+    display: flex;
+    gap: 8px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.days button {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--day-bg);
+    color: var(--day-text);
+    border: none;
+    padding: 11px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.days button:hover {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--day-hover);
+}
+
+.days .active {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--active-bg);
+    color: var(--active-text);
+}
+
+/* Main Row */
+
+.main-row {
+    font-family: "Cairo", sans-serif;
+    display: grid;
+
+    /* Subjects = left
+       Tasks = right */
+
+    grid-template-columns: 330px 1fr;
+
+    gap: 20px;
+
+    direction: ltr;
+}
+
+
+/* Subjects */
+
+.subjects {
+    font-family: "Cairo", sans-serif;
+    direction: rtl;
+    width: 100%;
+}
+
+.subject {
+    font-family: "Cairo", sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--subject-bg);
+    padding: 12px 15px;
+    border-radius: 13px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.mission {
+    font-family: "Cairo", sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--mission-text);
+    background-color: var(--mission-bg);
+    padding: 12px 15px;
+    border-radius: 13px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mission_checkbox {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--mission-bg);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: auto;
+}
+
+
+.dot {
+    font-family: "Cairo", sans-serif;
+    width: 12px;
+    height: 12px;
+
+    background-color: var(--dot-bg);
+
+    border-radius: 50%;
+}
+
+.english {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--english-bg);
+}
+
+.physics {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--physics-bg);
+}
+
+.count {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--count-bg);
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: auto;
+}
+
+.delete {
+    font-family: "Cairo", sans-serif;
+    margin-right: auto;
+    color: var(--delete-color);
+    font-size: 14px;
+}
+
+
+/* Add Subject */
+
+.add-subject {
+    font-family: "Cairo", sans-serif;
+    display: flex;
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+.add-subject input {
+    font-family: "Cairo", sans-serif;
+    width: 100%;
+}
+
+.add-subject button {
+    font-family: "Cairo", sans-serif;
+    background-color: var(--subject-bg);
+    color: var(--day-text);
+
+    padding: 5 25px;
+}
+
+
+/* Tasks */
+
+.tasks {
+    font-family: "Cairo", sans-serif;
+    direction: rtl;
+    min-height: 320px;
+}
+
+.empty {
+    font-family: "Cairo", sans-serif;
+    text-align: center;
+
+    margin-top: 90px;
+
+    color: var(--empty-text);
+}
+
+.icon {
+    font-family: "Cairo", sans-serif;
+    font-size: 32px;
+
+    margin-bottom: 20px;
+}
+
+.empty p {
+    font-family: "Cairo", sans-serif;
+    font-size: 15px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .inputs {
+        flex-direction: column;
+    }
+
+    .inputs input,
+    .inputs select,
+    .inputs button {
+        width: 100%;
+    }
+
+    .inputs button {
+        height: 45px;
+    }
+
+    .days {
+        overflow-x: auto;
+    }
+
+    .main-row {
+        grid-template-columns: 1fr;
+    }
+
+    .subjects {
+        order: 1;
+    }
+
+    .tasks {
+        order: 2;
+    }
+}
+
+.button {
+    background-color: var(--button2-bg);
+    color: var(--button2-text);
+    border: none;
+    padding: 11px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Check Box*/
+.glow-checkbox {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--checkbox-border);
+    border-radius: 6px;
+    background-color: var(--checkbox-bg);
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.glow-checkbox:checked {
+    background-color: var(--checkbox-checked-bg);
+    border-color: var(--checkbox-checked-bg);
+
+    box-shadow:
+        0 0 5px var(--checkbox-glow1),
+        0 0 12px var(--checkbox-glow2),
+        0 0 20px var(--checkbox-glow2);
+}
+
+.glow-checkbox:checked::after {
+    content: "✓";
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* hello */
+.hello-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hello-svg {
+    display: block;
+    width: 200px;
+    height: 60px;
+    margin: 0;
+}
+
+.hello {
+    font-family: "Parisienne", cursive;
+    font-size: 50px;
+    fill: transparent;
+    stroke: var(--hello-stroke);
+    stroke-width: 2.5px;
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    opacity: 1;
+}
+
+.hello.animate {
+    animation: draw 5s ease forwards,
+               fillIn 0.5s ease forwards 2s,
+               fadeOut 0.6s ease forwards 3s;
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fillIn {
+  to { fill: var(--hello-fill); }
+}
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+.name {
+    font-family: "Parisienne", cursive;
+    font-size: 35px;
+    font-weight: 1000;
+}
+
+.hello-word {
+    font-size: 55px;
+    font-weight: 400;
+    font-family: cursive;
+    font-style: italic;
+}
+
+.left {
+    text-align: left;
+}
+
+.theme-toggle {
+    background-color: var(--box-bg);
+    color: var(--text-color);
+    border: 1px solid var(--box-border);
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+

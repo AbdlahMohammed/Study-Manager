@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+LA+Guides&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Playwrite+DE+LA+Guides&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Parisienne&family=Playwrite+DE+LA+Guides&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="hello-container" id="helloContainer">
+        <svg class="hello-svg" id="helloSvg" viewBox="0 0 200 60">
+            <text x="100" y="42" text-anchor="middle" class="hello {% if show_hello %}animate{% endif %}" id="helloText">
+                hello
+            </text>
+        </svg>
+    </div>
+    <div class="container">
+        <!-- New Task -->
+        <div class="box add-task">
+            <div class="container">
+                <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+            <h2>🖊️ مهمة جديدة</h2>
+            <form action="/dashboard" method="POST">
+                <div class="inputs">
+                    <input type="text" placeholder="اسم المهمة (مثال: مراجعة)" name="mission" autocomplete="off">
+                    <select name="select_day">
+                        <option value="Saturday">السبت</option>
+                        <option value="Sunday">الأحد</option>
+                        <option value="Monday">الأثنين</option>
+                        <option value="Tuesday">الثلاثاء</option>
+                        <option value="Wednesday">الأربعاء</option>
+                        <option value="Thursday">الخميس</option>
+                        <option value="Friday">الجمعه</option>
+                    </select>
+                    <select name="select_fav">
+                        {% for i in range(subject_count) %}
+                        <option>{{subjects[i][0]}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" >أضف</button>
+                </div>
+            </form>
+            <form action="/dashboard" method="POST">
+              <div class="days">
+                  <button type="submit" name="day" value="Saturday">
+                      السبت
+                  </button>
+                  <button type="submit" name="day" value="Sunday">
+                      الأحد
+                  </button>
+                  <button type="submit" name="day" value="Monday">
+                      الإثنين
+                  </button>
+                  <button type="submit" name="day" value="Tuesday">
+                      الثلاثاء
+                  </button>
+                  <button type="submit" name="day" value="Wednesday">
+                      الأربعاء
+                  </button>
+                  <button type="submit" name="day" value="Thursday">
+                      الخميس
+                  </button>
+                  <button type="submit" name="day" value="Friday">
+                      الجمعة
+                  </button>
+              </div>
+            </form>
+        </div>
+        <!-- Main Content -->
+        <div class="main-row">
+            <!-- Subjects - Left -->
+            <div class="box subjects">
+                <h2>📚 موادي</h2>
+                {% for i in range(subject_count) %}
+                <form action="/dashboard" method="POST">
+                  <div class="subject">
+                      <span class="dot"></span>
+                      <span>{{subjects[i][0]}}</span>
+                      <span class="count">{{ subject_counts[subjects[i][0]] }}</span>
+                      <button class="button" type="submit" name="delete_subject" value="{{subjects[i][0]}}">حذف</button>
+                  </div>
+                </form>
+                {% endfor %}
+                <div class="add-subject">
+                  <form action="/dashboard" method="POST">
+                    <input type="text" placeholder="اسم مادة جديدة" name="add_subject" autocomplete="off">
+                    <p></p><br>
+                    <button type="submit" class="button">إضافة</button>
+                  </form>
+                </div>
+            </div>
+            <!-- Tasks - Right -->
+             <form action="/dashboard" method="POST">
+                    <div class="box tasks">
+                        <h2>مهام يوم {{ day }}</h2>
+                        <div class="empty">
+                            {% set ns = namespace(has_missions=false) %}
+                            {% for i in range(mission_count) %}
+                                {% if missions[i][1] == day %}
+                                    {% set ns.has_missions = true %}
+                                    <div class="mission">
+                                        <span class="dot"></span>
+                                        <input type="checkbox" class="glow-checkbox">
+                                        <span>{{ missions[i][0] }}</span>
+                                        <span class="mission_checkbox"></span>
+                                        <button class="button" type="submit" name="delete_mission" value="{{missions[i][0]}}">حذف</button>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            {% if not ns.has_missions %}
+                            <div class="icon">🍂</div>
+                            <p>لا توجد مهام في هذا اليوم بعد أضف أول مهمة لك.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+             </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            themeToggle.textContent = '🌙';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeToggle.textContent = '☀️';
+        }
+    });
+        function updateClock() {
+        const now = new Date();
+
+        document.getElementById("time").textContent =
+            now.toLocaleTimeString("en-GB", {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
+</html>
