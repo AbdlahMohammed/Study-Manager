@@ -3,7 +3,7 @@ import sqlite3
 import secrets
 import os
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "dev-only-key") 
+app.secret_key = 
 app.jinja_env.add_extension("jinja2.ext.loopcontrols")
 
 @app.route("/reset")
